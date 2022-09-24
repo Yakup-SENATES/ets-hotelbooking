@@ -4,17 +4,15 @@ import com.etstur.hotelbooking.dao.UserDao;
 import com.etstur.hotelbooking.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 
-
+@Repository
 public class UserDaoImpl implements UserDao {
 
-    private final EntityManager entityManager;
+    private static EntityManager entityManager;
 
-    public UserDaoImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
 
     private Session currentSession() {
         return entityManager.unwrap(Session.class);
@@ -55,6 +53,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-
+        currentSession().saveOrUpdate(user);
     }
+
 }

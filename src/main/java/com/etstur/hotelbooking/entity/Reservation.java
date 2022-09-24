@@ -134,4 +134,20 @@ public class Reservation {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", room='" + room + '\'' +
+                ", price=" + price +
+                ", rooms=" + rooms +
+                ", persons=" + persons +
+                ", children=" + children +
+                ", openBuffet='" + openBuffet + '\'' +
+                ", arrivalDate=" + arrivalDate +
+                ", stayDays=" + stayDays +
+                ", userId=" + userId +
+                '}';
+    }
 }

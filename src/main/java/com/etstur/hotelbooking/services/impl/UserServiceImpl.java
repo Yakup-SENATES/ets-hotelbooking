@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
 
         //give user default role
         newUser.setRoles(List.of(repository.findByName("ROLE_USER")));
+        userRepository.save(newUser);
     }
 
     @Override
