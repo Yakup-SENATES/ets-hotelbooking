@@ -4,7 +4,6 @@ import com.etstur.hotelbooking.dao.UserDao;
 import com.etstur.hotelbooking.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 

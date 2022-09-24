@@ -2,7 +2,6 @@ package com.etstur.hotelbooking.dao.impl;
 
 import com.etstur.hotelbooking.dao.RoleDao;
 import com.etstur.hotelbooking.entity.Role;
-import com.etstur.hotelbooking.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
