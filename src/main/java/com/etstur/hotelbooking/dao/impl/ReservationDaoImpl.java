@@ -19,7 +19,7 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public Reservation getReservationForLoggedUserById(int id) {
+    public Reservation getReservationForLoggedUserById(Long id) {
 
         Query<Reservation> query = currentSession().createQuery("from Reservation where id=:id", Reservation.class);
 
@@ -29,7 +29,7 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public Collection<Reservation> getReservationsByUserId(int userId) {
+    public Collection<Reservation> getReservationsByUserId(Long userId) {
 
         Query<Reservation> query = currentSession().createQuery("from Reservation where userId=:userId", Reservation.class);
 

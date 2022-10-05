@@ -7,10 +7,10 @@ import java.util.Collection;
 //Dao interface for Reservation entity
 public interface ReservationDao {
 
-    public Reservation getReservationForLoggedUserById(int id);
+    public Reservation getReservationForLoggedUserById(Long id);
 
 
-    public Collection<Reservation> getReservationsByUserId(int userId);
+    public Collection<Reservation> getReservationsByUserId(Long userId);
 
     public void saveOrUpdateReservation(Reservation reservation);
 

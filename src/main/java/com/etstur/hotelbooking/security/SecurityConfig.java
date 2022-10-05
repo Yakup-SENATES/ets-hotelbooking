@@ -44,8 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/new-reservation","/your-reservations").hasAnyRole("EMPLOYEE")
+                .antMatchers("/new-reservation","/your-reservations").authenticated()
                 .antMatchers("/login-form-page","/").permitAll()
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/login-form-page")

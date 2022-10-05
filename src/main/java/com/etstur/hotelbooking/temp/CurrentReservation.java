@@ -25,6 +25,10 @@ public class CurrentReservation {
     private int price;
 
     @NotNull(message = "is required")
+    @Size(min=1, message = "is requrired")
+    private int rooms;
+
+    @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
     private int persons;
 
@@ -58,6 +62,8 @@ public class CurrentReservation {
                               @NotNull(message = "is required")
                               @Size(min = 1, message = "is required") int price,
                               @NotNull(message = "is required")
+                              @NotNull(message = "is required")
+                              @Size(min = 1, message = "is required")int rooms,
                               @Size(min = 1, message = "is required") int persons,
                               @NotNull(message = "is required")
                               @Size(min = 1, message = "is required") int children,
@@ -71,6 +77,7 @@ public class CurrentReservation {
         this.stayPeriod = stayPeriod;
         this.room = room;
         this.price = price;
+        this.rooms = rooms;
         this.persons = persons;
         this.children = children;
         this.openBuffet = openBuffet;
@@ -86,6 +93,7 @@ public class CurrentReservation {
                 ", stayPeriod=" + stayPeriod +
                 ", room='" + room + '\'' +
                 ", price=" + price +
+                ", rooms=" + rooms +
                 ", persons=" + persons +
                 ", children=" + children +
                 ", openBuffet='" + openBuffet + '\'' +
@@ -124,6 +132,14 @@ public class CurrentReservation {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
     }
 
     public int getPersons() {

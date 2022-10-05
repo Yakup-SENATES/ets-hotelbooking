@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -25,7 +26,7 @@ public class ReservationServiceImpl implements ReservationService {
     //get reservation for logged user
     @Override
     @Transactional
-    public Reservation getReservationForLoggedUserById(int id) {
+    public Optional<Reservation> getReservationForLoggedUserById(Long id) {
         return reservationRepository.findById(id);
     }
 
@@ -61,18 +62,18 @@ public class ReservationServiceImpl implements ReservationService {
 
     // transfer data between Reservation and temp Reservation class update request
     @Override
-    public CurrentReservation reservationToCurrentReservation(int resId) {
-        Reservation reservation = getReservationForLoggedUserById(resId);
+    public CurrentReservation reservationToCurrentReservation(Long resId) {
+        Optional<Reservation> reservation = getReservationForLoggedUserById(resId);
         CurrentReservation currentReservation = new CurrentReservation();
 
-        currentReservation.setArrivalDate(reservation.getArrivalDate());
-        currentReservation.setChildren(reservation.getChildren());
-        currentReservation.setPersons(reservation.getPersons());
-        currentReservation.setPrice((int) reservation.getPrice());
-        currentReservation.setRoom(reservation.getRoom());
-        currentReservation.setOpenBuffet(reservation.getOpenBuffet());
-        currentReservation.setStayPeriod(reservation.getStayDays());
-        currentReservation.setId(reservation.getId());
+        currentReservation.setArrivalDate(reservation.get().getArrivalDate());
+        currentReservation.setChildren(reservation.get().getChildren());
+        currentReservation.setPersons(reservation.get().getPersons());
+        currentReservation.setPrice((int) reservation.get().getPrice());
+        currentReservation.setRoom(reservation.get().getRoom());
+        currentReservation.setOpenBuffet(reservation.get().getOpenBuffet());
+        currentReservation.setStayPeriod(reservation.get().getStayDays());
+        currentReservation.setId(reservation.get().getId());
 
         return currentReservation;
     }
@@ -80,8 +81,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public void deleteReservation(int resId) {
-        reservationRepository.deleteById((long) resId);
+    public void deleteReservation(Long resId) {
+        reservationRepository.deleteById(resId);
     }
 
 }

@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("/")
 public class HotelReservationController {
 
@@ -41,7 +42,7 @@ public class HotelReservationController {
 
 
     @GetMapping
-    public String home() {
+    public String homePage(){
         return "home-page";
     }
 
@@ -80,6 +81,7 @@ public class HotelReservationController {
     @GetMapping("/new-reservation")
     public String newReservation(Model model) {
         model.addAttribute("newRes", new CurrentUser());
+        model.addAttribute("hotel", new CurrentReservation());
         return "reservation-page";
     }
 
@@ -94,9 +96,9 @@ public class HotelReservationController {
 
     //reservation of user
     @GetMapping("/your-reservations")
+    //list of reservations for logged user
     public String reservationList(Model model) {
-        //list of reservations for logged user
-        model.addAttribute("reservations", reservationService.getReservationsForLoggedUser());
+        model.addAttribute("resList", reservationService.getReservationsForLoggedUser());
         return "your-reservations";
     }
 
@@ -105,7 +107,7 @@ public class HotelReservationController {
     public String updateReservation(@RequestParam("resId") int resId, Model model) {
 
         //new update reservation attribute send to services to store it
-        model.addAttribute("newRes", reservationService.reservationToCurrentReservation(resId));
+        model.addAttribute("newRes", reservationService.reservationToCurrentReservation((long)resId));
         return "reservation-page";
     }
     //delete Reservation
@@ -113,8 +115,8 @@ public class HotelReservationController {
     public String deleteReservation(@RequestParam("resId") int resId) {
 
         //delete reservation sent to services to delete it from database
-        reservationService.deleteReservation(resId);
-        return "reservation-page";
+        reservationService.deleteReservation((long)resId);
+        return "redirect:/your-reservations";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

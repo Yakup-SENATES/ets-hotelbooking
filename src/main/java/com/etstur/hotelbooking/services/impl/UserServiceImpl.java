@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,9 +58,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public int getLoggedUserId() {
-        User user = userRepository.findByUserName(loggedUserEmail());
-        return Math.toIntExact(user.getId());
+    public Long getLoggedUserId() {
+        User user = userRepository.findByEmail(loggedUserEmail());
+        return user.getId();
     }
 
     @Override
