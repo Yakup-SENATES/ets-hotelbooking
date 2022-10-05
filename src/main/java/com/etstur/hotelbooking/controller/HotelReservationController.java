@@ -1,6 +1,7 @@
 package com.etstur.hotelbooking.controller;
 
 
+import com.etstur.hotelbooking.entity.Reservation;
 import com.etstur.hotelbooking.entity.User;
 import com.etstur.hotelbooking.services.ReservationService;
 import com.etstur.hotelbooking.services.UserService;
@@ -17,9 +18,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/")
@@ -32,6 +35,17 @@ public class HotelReservationController {
         this.userService = userService;
         this.reservationService = reservationService;
     }
+    
+    @PostConstruct
+    public void init() {
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setUserName("John");
+        currentUser.setEmail("q@q.q");
+        currentUser.setPassword("123");
+        CurrentReservation reservation = new CurrentReservation();
+        userService.saveUser(currentUser);
+    }
+
 
     //birden fazla form doğrulama yapılacaksa bu methodu kullanabiliriz.
     @InitBinder
@@ -108,7 +122,7 @@ public class HotelReservationController {
 
         //new update reservation attribute send to services to store it
         model.addAttribute("newRes", reservationService.reservationToCurrentReservation((long)resId));
-        return "reservation-page";
+        return "reservation-update";
     }
     //delete Reservation
     @PostMapping("/reservation-delete")
